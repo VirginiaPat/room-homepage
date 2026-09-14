@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --color-grey-800: #444444;
+  --color-grey-600: #979797;
+  --color-grey-500: #a0a0a0;
+  --color-grey-200: #d8d8d8;
+  --color-grey-100: #efefef;
+  --color-grey-50: #fafafa;
+  --font-league-spartan: "League Spartan", sans-serif;
+
+  --text-40px: 2.5rem;
+  --text-15px: 0.9375rem;
+
+  /* Custom filters */
+  --filter-grey-800: brightness(0) saturate(100%) invert(23%) sepia(0%)
+    saturate(43%) hue-rotate(185deg) brightness(111%) contrast(96%);
+
+  /* custom breakpoint:535px (Surface Duo - 520x720px) */
+  /* --breakpoint-screen535: 33.4375rem; */
+
+  --animate-slide-in-right: slide-in-right 0.4s ease-out;
+
+  /* Animation for hamburger menu */
+  @keyframes slide-in-right {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Typography */
+@utility text-preset-1 {
+  @apply font-league-spartan font-semibold text-5xl leading-[90%] tracking-[-2px];
+}
+
+@utility text-preset-2 {
+  @apply font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px];
+}
+
+@utility text-preset-3-bold {
+  @apply font-league-spartan font-bold text-base leading-[140%] tracking-[7px];
+}
+
+@utility text-preset-3-semibold {
+  @apply font-league-spartan font-semibold text-base leading-[100%] tracking-[-0.7px];
+}
+
+@utility text-preset-3-medium {
+  @apply font-league-spartan font-medium text-base leading-[140%] tracking-[-0.5px];
+}
+
+@utility text-preset-4 {
+  @apply font-league-spartan font-medium text-15px leading-[100%] tracking-[12.5px];
+}
+
+@layer components {
+  .underline-link {
+    @apply relative pb-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-4 after:h-0.5 after:bg-transparent hover:after:bg-black focus:after:bg-black active:after:bg-black after:transition-all after:duration-800;
+  }
+
+  .open-menu-button {
+    @apply w-5 h-5 inline-flex items-center justify-center;
+  }
+
+  .menu-icon {
+    @apply overflow-visible;
+  }
+
+  .bar {
+    @apply stroke-current stroke-2 [stroke-linecap:round]  origin-center;
+    transform-box: fill-box;
+    transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  .open-menu-button:hover .top {
+    @apply origin-left scale-x-[0.6];
+  }
+
+  .open-menu-button:hover .bottom {
+    @apply origin-left scale-x-[0.8];
+  }
+
+  .open-menu-button:hover .middle {
+    @apply origin-left scale-x-[0.4];
+  }
+
+  .close-menu-button:hover .diagonal-1 {
+    @apply rotate-180 stroke-grey-800;
+  }
+
+  .close-menu-button:hover .diagonal-2 {
+    @apply -rotate-180 stroke-grey-800;
+  }
+}
