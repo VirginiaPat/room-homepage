@@ -43,7 +43,9 @@ if (validateDom(dom)) {
   };
 
   dom.openMenuButton.addEventListener("click", openHamMenu);
-  dom.closeMenuButton.addEventListener("click", closeHamMenu);
+  dom.closeMenuButton.addEventListener("click", () => {
+    closeHamMenu();
+  });
 
   dom.hamMenuDialog.addEventListener("click", (e) => {
     if (e.target === dom.hamMenuDialog) {

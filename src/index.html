@@ -21,23 +21,12 @@
     <link href="./styles.css" type="text/css" rel="stylesheet" />
     <script type="module" src="./index.js"></script>
 
-    <title>Frontend Mentor | Room homepage</title>
+    <title>Room homepage</title>
   </head>
   <body>
     <header
-      class="relative inset-x-0 flex h-27.5 items-center px-6 md:px-16 lg:h-36"
+      class="z-50 fixed top-0 inset-x-0 flex h-27.5 items-center px-6 md:px-16 lg:h-36"
     >
-      <!-- Hero image -->
-      <picture
-        ><source
-          media="(min-width:64rem)"
-          srcset="./images/desktop-image-hero-1.jpg" />
-        <img
-          class="absolute object-cover top-0 object-left w-full left-0 -z-10"
-          src="./images/mobile-image-hero-1.jpg"
-          alt=""
-      /></picture>
-
       <!-- Open hamburger menu button -->
       <div class="lg:hidden flex justify-center">
         <button
@@ -46,7 +35,7 @@
           aria-label="Open menu"
           aria-expanded="false"
           aria-controls="ham-menu-dialog"
-          class="text-white open-menu-button cursor-pointer"
+          class="open-menu-button"
         >
           <svg
             class="menu-icon"
@@ -70,14 +59,15 @@
       >
         <a
           href="#home"
-          aria-label="Go to home page"
-          class="text-white hover:transition hover duration-700 hover:text-grey-800"
+          aria-label="Go to Room's home page"
+          class="text-white hover:transition hover:duration-700 hover:text-grey-800"
           ><svg
             width="62"
             height="14"
             viewBox="0 0 62 14"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
             <path
               fill-rule="evenodd"
@@ -111,7 +101,7 @@
     <dialog
       id="ham-menu-dialog"
       aria-label="Navigation menu"
-      class="animate-slide-in-right fixed inset-x-0 top-0 open:flex items-center px-6 max-w-none w-full backdrop:bg-black/50 h-27.5 bg-white md:px-16"
+      class="animate-slide-in-right fixed inset-x-0 top-0 open:flex items-center px-6 max-w-none w-full backdrop:bg-black/50 h-27.5 bg-white md:px-16 focus-visible:outline-none"
     >
       <!-- Close hamburger menu button -->
       <div class="flex items-center justify-between w-full">
@@ -120,7 +110,7 @@
           type="button"
           autofocus
           aria-label="Close navigation menu"
-          class="close-menu-button cursor-pointer text-grey-600"
+          class="close-menu-button"
         >
           <svg
             class="close-icon"
@@ -167,7 +157,128 @@
     </dialog>
 
     <main>
-      <section></section>
+      <!-- Carousel section -->
+      <section
+        class="-z-10 grid grid-cols-1 lg:grid-cols-[58fr_42fr]"
+        aria-label="Store highlights"
+        aria-roledescription="carousel"
+        data-autoplay-delay="5000"
+      >
+        <!-- Carousel container -->
+        <div class="relative">
+          <ul>
+            <li
+              role="group"
+              aria-roledescription="slide"
+              aria-label="Slide 1 of 3"
+            >
+              <picture
+                ><source
+                  media="(min-width: 48rem)"
+                  srcset="./images/desktop-image-hero-1.jpg" />
+                <img
+                  class="w-full object-cover"
+                  src="./images/mobile-image-hero-1.jpg"
+                  alt=""
+              /></picture>
+            </li>
+          </ul>
+
+          <div class="flex absolute bottom-0 right-0 xl:-right-40">
+            <!-- Previous Button -->
+            <button
+              id="previous-slide-button"
+              type="button"
+              aria-label="Previous slide"
+              class="h-14 w-14 flex justify-center items-center cursor-pointer bg-black md:w-20 md:h-20 group transition-all duration-700 hover:bg-grey-600 focus-visible:bg-grey-600 focus-visible:outline-none active:bg-grey-800"
+            >
+              <svg
+                width="10"
+                height="18"
+                viewBox="0 0 10 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                class="transition-transform duration-300 ease-out group-hover:-translate-x-1 group-focus-visible:-translate-x-1"
+              >
+                <path
+                  d="M9.10706 0.353577L0.707056 8.75358L9.10706 17.1536"
+                  stroke="white"
+                />
+              </svg>
+            </button>
+            <!-- Next Button -->
+            <button
+              id="next-slide-button"
+              type="button"
+              aria-label="Next slide"
+              class="h-14 w-14 flex justify-center items-center cursor-pointer bg-black md:w-20 md:h-20 group transition-all duration-700 hover:bg-grey-600 focus-visible:bg-grey-600 focus-visible:outline-none active:bg-grey-800"
+            >
+              <svg
+                width="10"
+                height="18"
+                viewBox="0 0 10 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                class="transition-transform duration-300 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1"
+              >
+                <path
+                  d="M0.353516 0.353577L8.75352 8.75358L0.353516 17.1536"
+                  stroke="white"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Texts container -->
+        <div
+          class="flex flex-col gap-8 py-16 px-8 md:gap-6 md:px-16 lg:px-8 lg:py-0 lg:items-start lg:justify-center xl:px-20 2xl:px-25"
+        >
+          <div class="flex flex-col gap-4">
+            <h1
+              class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
+            >
+              Discover innovative ways to decorate
+            </h1>
+            <p class="text-preset-3-medium text-grey-500">
+              We provide unmatched quality, comfort, and style for property
+              owners across the country. Our experts combine form and function
+              in bringing your vision to life. Create a room in your own style
+              with our collection and make your property a reflection of you and
+              what you love.
+            </p>
+          </div>
+          <!-- Shop now button -->
+          <button
+            id="shop-now-button"
+            type="button"
+            aria-label="Shop now"
+            class="flex gap-6 group cursor-pointer transition-all duration-700 lg:gap-8 focus-visible:outline-black focus-visible:outline-offset-6 focus-visible:outline-2"
+          >
+            <span
+              class="text-preset-4 text-black uppercase group-hover:text-grey-500"
+              >shop now</span
+            ><svg
+              width="54"
+              height="12"
+              viewBox="0 0 54 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="group-hover:animate-shop-arrow group-hover:filter-(--filter-grey-500)"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M52.9929 5.52782L45.6435 0L44.7557 0.667759L51.2174 5.52782H0V6.52782H51.1434L44.7557 11.3322L45.6435 12L52.9189 6.52782H53.0029V6.46463L53.6207 6L53.0029 5.53537V5.52782H52.9929Z"
+                fill="black"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
     </main>
     <footer></footer>
   </body>
