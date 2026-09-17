@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* custom colors */
   --color-grey-800: #444444;
   --color-grey-600: #979797;
   --color-grey-500: #a0a0a0;
@@ -9,6 +10,7 @@
   --color-grey-50: #fafafa;
   --font-league-spartan: "League Spartan", sans-serif;
 
+  /* custom font sizes */
   --text-40px: 2.5rem;
   --text-15px: 0.9375rem;
 
@@ -86,8 +88,12 @@
 }
 
 @layer components {
-  .underline-link {
+  .underline-link-black {
     @apply relative pb-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-4 after:h-0.5 after:bg-transparent hover:after:bg-black focus-visible:after:bg-black active:after:bg-black after:transition-all after:duration-700;
+  }
+
+  .underline-link-white {
+    @apply relative pb-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-4 after:h-0.5 after:bg-transparent hover:after:bg-white focus-visible:after:bg-white active:after:bg-white after:transition-all after:duration-700;
   }
 
   .open-menu-button {
@@ -125,11 +131,41 @@
 
   .close-menu-button:hover .diagonal-1,
   .close-menu-button:focus-visible .diagonal-1 {
-    @apply rotate-180 stroke-grey-800;
+    @apply rotate-180 stroke-black;
   }
 
   .close-menu-button:hover .diagonal-2,
   .close-menu-button:focus-visible .diagonal-2 {
-    @apply -rotate-180 stroke-grey-800;
+    @apply -rotate-180 stroke-black;
+  }
+
+  .carousel-slide {
+    opacity: 0;
+    transition: opacity 1s ease;
+    grid-area: 1/1;
+  }
+
+  .slide-content {
+    opacity: 0;
+    transition: opacity 1s ease;
+    grid-area: 1/1;
+  }
+
+  .carousel-slide.is-active,
+  .slide-content.is-active {
+    opacity: 1;
+  }
+
+  .carousel-slide:not(.is-active),
+  .slide-content:not(.is-active) {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-slide,
+    .slide-content {
+      transition: none;
+    }
   }
 }

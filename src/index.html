@@ -19,7 +19,7 @@
     />
 
     <link href="./styles.css" type="text/css" rel="stylesheet" />
-    <script type="module" src="./index.js"></script>
+    <script type="module" src="./js/index.js"></script>
 
     <title>Room homepage</title>
   </head>
@@ -80,18 +80,18 @@
       </div>
       <!-- Navigation menu / DESKTOP -->
       <nav aria-label="Navigation menu" class="hidden lg:block lg:ml-14">
-        <ul class="flex gap-8 text-preset-3-semibold text-black">
+        <ul class="flex gap-8 text-preset-3-semibold text-white">
           <li>
-            <a href="#home" class="underline-link">home</a>
+            <a href="#home" class="underline-link-white">home</a>
           </li>
           <li>
-            <a href="#shop" class="underline-link">shop</a>
+            <a href="#shop" class="underline-link-white">shop</a>
           </li>
           <li>
-            <a href="#about" class="underline-link">about</a>
+            <a href="#about" class="underline-link-white">about</a>
           </li>
           <li>
-            <a href="#contact" class="underline-link">contact</a>
+            <a href="#contact" class="underline-link-white">contact</a>
           </li>
         </ul>
       </nav>
@@ -140,16 +140,16 @@
         <nav aria-label="Dialog navigation menu">
           <ul class="flex gap-8 text-preset-3-semibold text-black">
             <li>
-              <a href="#home" class="underline-link">home</a>
+              <a href="#home" class="underline-link-black">home</a>
             </li>
             <li>
-              <a href="#shop" class="underline-link">shop</a>
+              <a href="#shop" class="underline-link-black">shop</a>
             </li>
             <li>
-              <a href="#about" class="underline-link">about</a>
+              <a href="#about" class="underline-link-black">about</a>
             </li>
             <li>
-              <a href="#contact" class="underline-link">contact</a>
+              <a href="#contact" class="underline-link-black">contact</a>
             </li>
           </ul>
         </nav>
@@ -159,18 +159,23 @@
     <main>
       <!-- Carousel section -->
       <section
-        class="-z-10 grid grid-cols-1 lg:grid-cols-[58fr_42fr]"
+        id="carousel-slider"
+        class="-z-10 grid grid-cols-1 lg:grid-cols-[58fr_42fr] overflow-hidden"
         aria-label="Store highlights"
         aria-roledescription="carousel"
-        data-autoplay-delay="5000"
+        data-autoplay-delay="3000"
       >
         <!-- Carousel container -->
         <div class="relative">
-          <ul>
+          <ul id="carousel-slider-track" class="grid list-none">
+            <!-- SLIDE 1/3 -->
             <li
+              id="slide-1"
+              class="carousel-slide is-active"
               role="group"
               aria-roledescription="slide"
               aria-label="Slide 1 of 3"
+              aria-describedby="slide-1-content"
             >
               <picture
                 ><source
@@ -180,6 +185,47 @@
                   class="w-full object-cover"
                   src="./images/mobile-image-hero-1.jpg"
                   alt=""
+                  loading="lazy"
+              /></picture>
+            </li>
+            <!-- SLIDE 2/3 -->
+            <li
+              id="slide-2"
+              class="carousel-slide hidden"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="Slide 2 of 3"
+              aria-describedby="slide-2-content"
+            >
+              <picture
+                ><source
+                  media="(min-width: 48rem)"
+                  srcset="./images/desktop-image-hero-2.jpg" />
+                <img
+                  class="w-full object-cover"
+                  src="./images/mobile-image-hero-2.jpg"
+                  alt=""
+                  loading="lazy"
+              /></picture>
+            </li>
+            <!-- SLIDE 3/3 -->
+            <li
+              id="slide-3"
+              class="carousel-slide hidden"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="Slide 3 of 3"
+              aria-describedby="slide-3-content"
+            >
+              <picture
+                ><source
+                  media="(min-width: 48rem)"
+                  srcset="./images/desktop-image-hero-3.jpg" />
+                <img
+                  class="w-full object-cover"
+                  src="./images/mobile-image-hero-3.jpg"
+                  alt=""
+                  loading="lazy"
               /></picture>
             </li>
           </ul>
@@ -236,19 +282,61 @@
         <div
           class="flex flex-col gap-8 py-16 px-8 md:gap-6 md:px-16 lg:px-8 lg:py-0 lg:items-start lg:justify-center xl:px-20 2xl:px-25"
         >
-          <div class="flex flex-col gap-4">
-            <h1
-              class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
+          <div id="slides-content-container" class="grid">
+            <!-- TEXT FOR SLIDE 1 -->
+            <div
+              id="slide-1-content"
+              class="slide-content is-active flex flex-col gap-4"
             >
-              Discover innovative ways to decorate
-            </h1>
-            <p class="text-preset-3-medium text-grey-500">
-              We provide unmatched quality, comfort, and style for property
-              owners across the country. Our experts combine form and function
-              in bringing your vision to life. Create a room in your own style
-              with our collection and make your property a reflection of you and
-              what you love.
-            </p>
+              <h1
+                class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
+              >
+                Discover innovative ways to decorate
+              </h1>
+              <p class="text-preset-3-medium text-grey-500">
+                We provide unmatched quality, comfort, and style for property
+                owners across the country. Our experts combine form and function
+                in bringing your vision to life. Create a room in your own style
+                with our collection and make your property a reflection of you
+                and what you love.
+              </p>
+            </div>
+            <!-- TEXT FOR SLIDE 2 -->
+            <div
+              id="slide-2-content"
+              class="slide-content hidden flex-col gap-4"
+            >
+              <h1
+                class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
+              >
+                We are available all across the globe
+              </h1>
+              <p class="text-preset-3-medium text-grey-500">
+                With stores all over the world, it's easy for you to find
+                furniture for your home or place of business. Locally, we're in
+                most major cities throughout the country. Find the branch
+                nearest you using our store locator. Any questions? Don't
+                hesitate to contact us today.
+              </p>
+            </div>
+            <!-- TEXT FOR SLIDE 3 -->
+            <div
+              id="slide-3-content"
+              class="slide-content hidden flex-col gap-4"
+            >
+              <h1
+                class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
+              >
+                Manufactured with the best materials
+              </h1>
+              <p class="text-preset-3-medium text-grey-500">
+                Our modern furniture store provide a high level of quality. Our
+                company has invested in advanced technology to ensure that every
+                product is made as perfect and as consistent as possible. With
+                three decades of experience in this industry, we understand what
+                customers want for their home and office.
+              </p>
+            </div>
           </div>
           <!-- Shop now button -->
           <button
