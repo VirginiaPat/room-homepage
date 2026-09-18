@@ -18,18 +18,21 @@ export const initCarousel = () => {
   if (validateDom(carouselDom)) {
     const autoplayDelay =
       Number(carouselDom.slider.dataset.autoplayDelay) || 3000;
-    const prefersReducemotion = window.matchMedia(
+    const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
     /** @type {number} Index of the currently active slide. */
-    let currentIndex = carouselDom.slideEls.findIndex((slide) =>
-      slide.classList.contains("is-active"),
+    let currentIndex = carouselDom.slides.findIndex((s) =>
+      s.slideEl.classList.contains("is-active"),
     );
     if (currentIndex === -1) currentIndex = 0;
 
     /** @type {number | null} Interval ID for autoplay, or null when stopped. */
     let autoplayId = null;
+
+    /** @type {boolean} True once the user has explicitly paused via the toggle button. */
+    let isPausedByUser = false;
 
     /**
      * Transitions the carousel to the slide at the given index,
@@ -43,24 +46,22 @@ export const initCarousel = () => {
      */
     const goToSlide = (index) => {
       const nextIndex =
-        (index + carouselDom.slideEls.length) % carouselDom.slideEls.length;
+        (index + carouselDom.slides.length) % carouselDom.slides.length;
       if (nextIndex === currentIndex) return;
 
-      const outgoingSlide = carouselDom.slideEls[currentIndex];
-      const outgoingContent = carouselDom.allSlidesContentArray[currentIndex];
-      const incomingSlide = carouselDom.slideEls[nextIndex];
-      const incomingContent = carouselDom.allSlidesContentArray[nextIndex];
+      const outgoing = carouselDom.slides[currentIndex];
+      const incoming = carouselDom.slides[nextIndex];
+
+      const outgoingSlide = outgoing.slideEl;
+      const outgoingContent = outgoing.contentEl;
+      const incomingSlide = incoming.slideEl;
+      const incomingContent = incoming.contentEl;
 
       // Reveal the incoming slide so it's part of the crossfade, then
       // let the opacity transition play before hiding the outgoing one.
       incomingSlide.classList.remove("hidden");
-      incomingSlide.setAttribute("tabindex", "0");
-      incomingSlide.querySelector("a")?.setAttribute("tabindex", "0");
-
       incomingContent.classList.remove("hidden");
       incomingContent.classList.add("flex");
-      incomingContent.setAttribute("tabindex", "0");
-      incomingContent.querySelector("a")?.setAttribute("tabindex", "0");
 
       // Deferred one frame so the browser paints the "revealed but
       // still faded out" state first, guaranteeing the opacity
@@ -119,12 +120,45 @@ export const initCarousel = () => {
 
     /**
      * Starts autoplay, clearing any existing interval first so
-     * repeated calls don't stack multiple timers.
+     * repeated calls don't stack multiple timers. No-ops if the user
+     * has explicitly paused the carousel via the toggle button.
      * @returns {void}
      */
     const startAutoplay = () => {
+      if (isPausedByUser) return;
       stopAutoplay();
       autoplayId = setInterval(goToNext, autoplayDelay);
+    };
+
+    /**
+     * Toggles the user-facing pause state, syncing the button's
+     * aria-pressed/aria-label and icon, and stopping or resuming
+     * autoplay accordingly. This is independent from the transient
+     * hover/focus pausing below: once the user pauses here, hover/focus
+     * leaving the carousel must not silently resume it.
+     * @returns {void}
+     */
+    const toggleAutoplay = () => {
+      isPausedByUser = !isPausedByUser;
+
+      if (isPausedByUser) {
+        stopAutoplay();
+        carouselDom.toggleAutoplayButton.setAttribute(
+          "aria-label",
+          "Play slideshow",
+        );
+        carouselDom.toggleAutoplayButton.setAttribute("aria-pressed", "true");
+      } else {
+        startAutoplay();
+        carouselDom.toggleAutoplayButton.setAttribute(
+          "aria-label",
+          "Pause slideshow",
+        );
+        carouselDom.toggleAutoplayButton.setAttribute("aria-pressed", "false");
+      }
+
+      carouselDom.pauseIcon.classList.toggle("hidden", isPausedByUser);
+      carouselDom.playIcon.classList.toggle("hidden", !isPausedByUser);
     };
 
     /**
@@ -146,22 +180,26 @@ export const initCarousel = () => {
     const bindEvents = () => {
       carouselDom.prevButton.addEventListener("click", goToPrev);
       carouselDom.nextButton.addEventListener("click", goToNext);
+      carouselDom.toggleAutoplayButton.addEventListener(
+        "click",
+        toggleAutoplay,
+      );
 
       carouselDom.slider.addEventListener("mouseenter", stopAutoplay);
       carouselDom.slider.addEventListener("mouseleave", () => {
-        if (!prefersReducemotion) startAutoplay();
+        if (!prefersReducedMotion) startAutoplay();
       });
 
       carouselDom.slider.addEventListener("focusin", stopAutoplay);
       carouselDom.slider.addEventListener("focusout", () => {
-        if (!prefersReducemotion) startAutoplay();
+        if (!prefersReducedMotion) startAutoplay();
       });
 
       carouselDom.slider.addEventListener("keydown", handleKeyDown);
     };
 
     bindEvents();
-    if (!prefersReducemotion) startAutoplay();
+    if (!prefersReducedMotion) startAutoplay();
   } else {
     console.warn(
       "[carousel.js] Carousel disabled — one or more required elements were not found.",

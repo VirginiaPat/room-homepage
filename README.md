@@ -11,6 +11,7 @@ This is a solution to the [Room homepage challenge on Frontend Mentor](https://w
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
+  - [Testing notes](#testing-notes)
   - [Continued development](#continued-development)
   - [AI Collaboration](#ai-collaboration)
 - [Author](#author)
@@ -49,9 +50,19 @@ Users should be able to:
 
 Building the hero carousel taught me how much thought goes into making an interactive component genuinely accessible, not just visually functional. I followed the [ARIA Authoring Practices carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/), using `role="group"`, `aria-roledescription="slide"`, and `aria-describedby` to semantically link each slide's image to its text content, even though the two live in separate parts of the DOM. On the CSS side, debugging an inconsistent crossfade taught me how `:not()` pseudo-classes affect specificity, and switching from `:focus` to `:focus-visible` throughout the project made me think more carefully about the difference between mouse and keyboard interaction. Finally, writing a small `validateDom` helper to check for missing elements before attaching event listeners — and fixing a null-reference bug it didn't originally catch — reinforced how valuable defensive coding is once JavaScript starts touching the DOM directly.
 
+### Testing notes
+
+I manually verified the finished build across the following:
+
+- **Viewports:** mobile (375px), tablet (768px), a custom layout at 1024px, and desktop (1440px+), using browser DevTools responsive mode and resizing between breakpoints to catch layout issues in between.
+- **About our furniture section:** on mobile and tablet, this is a single column with three stacked rows (image, text, image). At 1024px, I adjusted it to a single row with two columns, hiding one of the two images entirely, since the three-row layout felt too cramped at that width. From 1440px up, it follows the Figma design exactly.
+- **Hover states:** checked nav underline links, carousel arrows, shop-now arrow animation, and the hamburger menu icon states on desktop with a mouse.
+- **Keyboard navigation:** tabbed through the header nav, opened and closed the hamburger `<dialog>` (confirming focus moves into it and returns to the trigger button on close), and confirmed the carousel responds to Left/Right arrow keys while focused.
+- **Reduced motion:** enabled `prefers-reduced-motion: reduce` in system settings and confirmed the carousel autoplay does not start.
+
 ### Continued development
 
-The carousel's autoplay currently pauses on hover and keyboard focus, but it has no explicit play/pause control, which I'd like to add to better meet WCAG 2.2.2 (Pause, Stop, Hide). Longer term, I'd like to get more comfortable writing animations from scratch instead of leaning on Tailwind's animation utilities for everything, since that was one of my main goals with this challenge.
+Longer term, I'd like to get more comfortable writing animations from scratch instead of leaning on Tailwind's animation utilities for everything, since that was one of my main goals with this challenge.
 
 ### AI Collaboration
 

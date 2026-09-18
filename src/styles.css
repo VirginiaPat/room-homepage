@@ -58,7 +58,7 @@
 
 @layer base {
   a:focus-visible {
-    @apply outline-grey-100 outline-offset-4 outline-2;
+    @apply outline-current outline-offset-4 outline-2;
   }
 }
 
@@ -101,7 +101,7 @@
   }
 
   .close-menu-button {
-    @apply cursor-pointer text-grey-600 focus-visible:outline-none;
+    @apply cursor-pointer text-grey-600 focus-visible:outline-2 focus-visible:outline-grey-800 focus-visible:outline-offset-4;
   }
 
   .menu-icon {

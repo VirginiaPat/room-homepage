@@ -161,6 +161,7 @@
       <section
         id="carousel-slider"
         class="-z-10 grid grid-cols-1 lg:grid-cols-[58fr_42fr] overflow-hidden"
+        role="region"
         aria-label="Store highlights"
         aria-roledescription="carousel"
         data-autoplay-delay="3000"
@@ -185,7 +186,10 @@
                   class="w-full object-cover"
                   src="./images/mobile-image-hero-1.jpg"
                   alt=""
-                  loading="lazy"
+                  width="375"
+                  height="360"
+                  fetchpriority="high"
+                  decoding="async"
               /></picture>
             </li>
             <!-- SLIDE 2/3 -->
@@ -205,6 +209,8 @@
                   class="w-full object-cover"
                   src="./images/mobile-image-hero-2.jpg"
                   alt=""
+                  width="375"
+                  height="360"
                   loading="lazy"
               /></picture>
             </li>
@@ -225,12 +231,14 @@
                   class="w-full object-cover"
                   src="./images/mobile-image-hero-3.jpg"
                   alt=""
+                  width="375"
+                  height="360"
                   loading="lazy"
               /></picture>
             </li>
           </ul>
 
-          <div class="flex absolute bottom-0 right-0 xl:-right-40">
+          <div class="flex absolute bottom-0 right-0 xl:-right-60">
             <!-- Previous Button -->
             <button
               id="previous-slide-button"
@@ -275,6 +283,33 @@
                 />
               </svg>
             </button>
+            <!-- Pause/Play autoplay button -->
+            <button
+              id="toggle-autoplay-button"
+              type="button"
+              aria-label="Pause slideshow"
+              aria-pressed="false"
+              class="h-14 w-14 flex justify-center items-center cursor-pointer bg-black md:w-20 md:h-20 transition-all duration-700 hover:bg-grey-600 focus-visible:bg-grey-600 focus-visible:outline-none active:bg-grey-800"
+            >
+              <svg
+                width="14"
+                height="16"
+                viewBox="0 0 14 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <!-- Pause icon: two bars, shown while playing -->
+                <g id="pause-icon">
+                  <rect x="0" y="0" width="4" height="16" fill="white" />
+                  <rect x="10" y="0" width="4" height="16" fill="white" />
+                </g>
+                <!-- Play icon: triangle, shown while paused -->
+                <g id="play-icon" class="hidden">
+                  <path d="M0 0L14 8L0 16V0Z" fill="white" />
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -306,11 +341,11 @@
               id="slide-2-content"
               class="slide-content hidden flex-col gap-4"
             >
-              <h1
+              <h2
                 class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
               >
                 We are available all across the globe
-              </h1>
+              </h2>
               <p class="text-preset-3-medium text-grey-500">
                 With stores all over the world, it's easy for you to find
                 furniture for your home or place of business. Locally, we're in
@@ -324,11 +359,11 @@
               id="slide-3-content"
               class="slide-content hidden flex-col gap-4"
             >
-              <h1
+              <h2
                 class="font-league-spartan font-semibold text-40px leading-[100%] tracking-[-2px] md:text-5xl md:leading-[90%]"
               >
                 Manufactured with the best materials
-              </h1>
+              </h2>
               <p class="text-preset-3-medium text-grey-500">
                 Our modern furniture store provide a high level of quality. Our
                 company has invested in advanced technology to ensure that every
@@ -339,9 +374,9 @@
             </div>
           </div>
           <!-- Shop now button -->
-          <button
+          <a
+            href="#shop"
             id="shop-now-button"
-            type="button"
             aria-label="Shop now"
             class="flex gap-6 group cursor-pointer transition-all duration-700 lg:gap-8 focus-visible:outline-black focus-visible:outline-offset-6 focus-visible:outline-2"
           >
@@ -364,7 +399,7 @@
                 fill="black"
               />
             </svg>
-          </button>
+          </a>
         </div>
       </section>
       <!-- ABOUT OUR FURNITURE SECTION -->
@@ -376,6 +411,8 @@
           class="w-full object-cover lg:col-start-2 2xl:col-start-1"
           src="./images/image-about-dark.jpg"
           alt="Dark living room with a black armchair and round wooden coffee table"
+          width="375"
+          height="238"
           loading="lazy"
         />
         <div
@@ -399,6 +436,8 @@
           class="w-full object-cover lg:hidden 2xl:block"
           src="./images/image-about-light.jpg"
           alt="White curved chair against a light grey wall"
+          width="375"
+          height="227"
           loading="lazy"
         />
       </section>
@@ -410,7 +449,7 @@
         <p>
           Challenge by
           <a
-            class="text-orange-500 focus:text-orange-300 hover:text-orange-300"
+            class="text-orange-700 focus-visible:text-orange-600 hover:text-orange-600"
             href="https://www.frontendmentor.io?ref=challenge"
           >
             Frontend Mentor.
@@ -419,7 +458,7 @@
         <p>
           Coded by
           <a
-            class="text-orange-500 focus:text-orange-300 hover:text-orange-300"
+            class="text-orange-700 focus-visible:text-orange-600 hover:text-orange-600"
             href="https://www.frontendmentor.io/profile/VirginiaPat"
             >Virginia Patrika.</a
           >
