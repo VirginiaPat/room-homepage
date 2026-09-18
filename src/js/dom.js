@@ -1,8 +1,28 @@
+/**
+ * Cached DOM references for the page's interactive features, grouped
+ * by feature so each module can validate only the elements it needs.
+ *
+ * @module dom
+ */
+
+/**
+ * DOM elements required by the hamburger menu.
+ * @type {Record<string, Element | null>}
+ */
 export const hamburgerDom = {
   openMenuButton: document.getElementById("open-menu-button"),
   hamMenuDialog: document.getElementById("ham-menu-dialog"),
   closeMenuButton: document.getElementById("close-menu-button"),
 };
+
+/**
+ * DOM elements required by the hero carousel.
+ * `slideEls` and `allSlidesContentArray` are read once at module load,
+ * so they only reflect slides present in the HTML at page load —
+ * slides added to the DOM later would not appear here.
+ *
+ * @type {Record<string, Element | Element[] | null>}
+ */
 export const carouselDom = {
   slider: document.getElementById("carousel-slider"),
   track: document.getElementById("carousel-slider-track"),
@@ -18,6 +38,14 @@ export const carouselDom = {
   ],
 };
 
+/**
+ * Validates that all expected DOM elements were found, and warns in the
+ * console for any key whose value is missing (null) or an empty array.
+ *
+ * @param {Record<string, Element | Element[] | null>} domObj - Object mapping
+ *   descriptive keys to DOM elements (or element arrays) that should exist on the page.
+ * @returns {boolean} true if every element was found, false otherwise.
+ */
 export const validateDom = (domObj) => {
   let isValid = true;
 
